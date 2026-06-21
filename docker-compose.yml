@@ -1,0 +1,27 @@
+services:
+  amarimage:
+    build: .
+    image: amarimage:latest
+    container_name: amarimage_container
+    ports:
+      - "3000:3000"
+  # postgres
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: naims
+      POSTGRES_PASSWORD: naims123
+      POSTGRES_DB: my-db
+    ports:
+      - "5432:5432"
+
+  # pgadmin
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: naim@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: naim123
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
